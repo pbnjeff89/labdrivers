@@ -6,13 +6,16 @@ logger = logging.getLogger(__name__)
 logger.addHandler(logging.StreamHandler())
 
 # load the C# .dll supplied by Quantum Design
-clr.AddReference('QDInstrument')
-
-if clr.FindAssembly('QDInstrument') is None:
-    logger.exception('\n\tCould not find QDInstrument.dll')
-else:
-    logger.exception('\n\tFound QDInstrument.dll at {}'.format(clr.FindAssembly('QDInstrument')))
-    logger.exception('\n\tTry right-clicking the .dll, selecting "Properties", and then clicking "Unblock"')
+try:
+    clr.AddReference('QDInstrument')
+except:
+    if clr.FindAssembly('QDInstrument') is None:
+        logger.exception('\n\tCould not find QDInstrument.dll')
+        logger.exception('\n\tIt is possible that the interpreter\' search path does not provide enough coverage')
+        logger.exception('\n\tAppend the path of the DLL file with sys.path.append(\'<directory>\')')
+    else:
+        logger.exception('\n\tFound QDInstrument.dll at {}'.format(clr.FindAssembly('QDInstrument')))
+        logger.exception('\n\tTry right-clicking the .dll, selecting "Properties", and then clicking "Unblock"')
 
 # import the C# classes for interfacing with the PPMS
 from QuantumDesign.QDInstrument import QDInstrumentBase, QDInstrumentFactory

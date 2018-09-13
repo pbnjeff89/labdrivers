@@ -1,5 +1,7 @@
 [![Documentation Status](https://readthedocs.org/projects/labdrivers/badge/?version=latest)](http://labdrivers.readthedocs.org/en/latest/?badge=latest)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## labdrivers
 
 labdrivers is a Python module containing a collection of drivers for common research lab instruments.
@@ -40,6 +42,8 @@ from labdrivers.oxford import MercuryIps
 
 mercury_ps = MercuryIps(mode='ip', ip_address='123.456.789.0')
 ```
+
+Note that one does not have to actually invoke the file name (see documentation).
 
 Several of the packages exploit the property and setter decorators to query the state of
 the equipment or to set the state of the machine. Of course, not everything can be

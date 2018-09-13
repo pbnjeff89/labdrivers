@@ -3,13 +3,23 @@
 If you don't want to try and figure out all the changes from the diff and commits,
 just read this. I wrote this to make the changes more robust.
 
+## 0.9.7: `quantumdesign` package minor changes & more documentation
+
+- Added back in a `try-except` structure in the `AddReference` part of `qdinstrument.py`.
+  As a result, a `FileNotFoundException` may be caught.
+- In the new `try-except` clause described above, a new `logging` statement was added because
+  it was found that `clr.FindAssembly` may return nothing because the interpreter cannot
+  find the `QDInstrument.dll` file path even if the environment variables and the Python
+  path include a parent directory of `QDInstrument.dll`. In fact, the solution can be as simple
+  as running `sys.path.append(<directory of QDInstrument.dll>)`.
+
 ## 0.9.6: Keithley read changes
 
-- Keithley 2400s should be able to properly read out what they're supposed to.
-  The Keithley2400.read() function takes a variable number of arguments that are
-  in the list: 'voltage', 'current', 'resistance', 'time'. The internal workings
+- `Keithley 2400`s should be able to properly read out what they're supposed to.
+  The `Keithley2400.read()` function takes a variable number of arguments that are
+  in the list: `'voltage'`, `'current'`, `'resistance'`, `'time'`. The internal workings
   assume that the function returns a list which has a length which is some
-  multiple of 5. Keithley2400.read() returns a tuple of lists, the first element
+  multiple of 5. `Keithley2400.read()` returns a tuple of lists, the first element
   in the tuple being the mean values of the requested values to be read, the second
   being the standard deviation (if there are multiple readings in the buffer).
 

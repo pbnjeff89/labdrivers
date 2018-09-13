@@ -10,6 +10,8 @@ these for experiment.
 Coding conventions
 ^^^^^^^^^^^^^^^^^^
 
+In short, follow standard Python conventions *unless* the convention for a module already has a different style.
+
 The modules in the `labdrivers` package follow the following conventions:
 
 - Class names are all CamelCase, e.g.::
@@ -35,8 +37,9 @@ Driver design principles
 - Minimize the amount of 'internal state' maintained by the driver
 
 The only 'internal state' that an instance should keep are properties like an IP address
-or a GPIB resource name. Most classes use the property decorator, but they are used only
-to make a query and return the response directly to the user.
+or a GPIB resource name. Try to pass measured data directly to a user rather than keep it stored
+in a class instance. Most classes use a property decorator to pass data to a user, but they are used only
+to make a query and do not actually store anything.
 
 E.g. do this::
 
@@ -78,8 +81,8 @@ Example::
     """
     First line of documentation.
 
-    :param thing1: Description of thing1 parameter
-    :param thing2: Description of thing2 parameter
+    :param data_type1 thing1: Description of thing1 parameter
+    :param data_type2 thing2: Description of thing2 parameter
     :returns: Description of the returned data
     :raises SomeError: Description of when SomeError shows up
     """
