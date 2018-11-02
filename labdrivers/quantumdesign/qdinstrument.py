@@ -113,6 +113,8 @@ class QdInstrument:
     def getPosition(self):
         """Retrieves the position of the rotator.
 
+        WARNING: Tested, but doesn't seem to work. Please use SendPPMSCommand.
+
         GetPosition(string Axis, ref double Position, ref QDInstrumentBase.PositionStatus Status)
 
         "Horizontal Rotator" seems to be the name that one should pass to GetPosition, as
@@ -122,6 +124,8 @@ class QdInstrument:
 
     def setPosition(self, position, speed):
         """Ramps the instrument position to the set point.
+
+        WARNING: Tested, but doesn't seem to work. Please use GetPPMSItem.
 
         Parameters are from:
         SetPosition(string Axis, double Position, double Speed, QDInstrumentBase.PositionMode Mode)
@@ -141,6 +145,22 @@ class QdInstrument:
         :return: 0 when complete.
         """
         return self.qdi_instrument.WaitFor(False, False, True, False, delay, timeout)
+
+    def getPPMSItem(self, channel: int):
+        """Retrieves a PPMS item.
+
+        :param int channel: The channel of the PPMS item.
+        """
+        return self.qdi_instrument.GetPPMSItem(channel, 0.0, True)
+
+    def sendPPMScommand(self, command: str, device: int, timeout: float)
+        """Sends a command to the PPMS.
+
+        :param str command: A string that is readable by the PPMS.
+        :param int device: The device that will receive the command.
+        :param float timeout: How long to wait for a reply before throwing an error.
+        """
+        return self.qdi_instrument.SendPPMSCommand(command, "", "", device, timeout)
 
 
 class Dynacool(QdInstrument):
